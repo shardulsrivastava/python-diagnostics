@@ -48,5 +48,5 @@ This will generate a two endpoints :
   ![alt text](diagnostics-endpoint.png "Diagnostics Endpoint")
 
 
- 2. '/heartbeat' with response as `Ok`
+ 2. `/heartbeat` with response as `Ok`
 
