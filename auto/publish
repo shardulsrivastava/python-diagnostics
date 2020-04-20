@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+cd "$(dirname $0)/.."
+
+echo "Deleting existing folders"
+
+rm -rf build/ dist/ diagnostics_endpoint.egg-info/
+
+echo "Generating distribution archives"
+python3 setup.py sdist bdist_wheel
+
+echo "Uploading artifacts"
+
+twine upload -u shardulsrivastava -p BtxkqJ2ri5ZDrwT dist/*
