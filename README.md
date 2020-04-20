@@ -42,7 +42,7 @@ Diagnostics.render(app, application_endpoints)
 
 ```
 
-This will generate a two endpoints :
+This will generate two endpoints :
  1. `/diagnostics` as
   
   ![alt text](diagnostics-endpoint.png "Diagnostics Endpoint")
