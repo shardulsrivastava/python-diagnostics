@@ -45,9 +45,8 @@ Diagnostics.render(app, application_endpoints)
 This will generate a two endpoints :
  1. `/diagnostics` as
   
-  ![alt text](diagnostics-page.png "Diagnostics Endpoint")
+  ![alt text](diagnostics-endpoint.png "Diagnostics Endpoint")
 
 
-
-2. '/heartbeat' with response as `Ok`
+ 2. '/heartbeat' with response as `Ok`
 
