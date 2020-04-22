@@ -7,3 +7,9 @@ dist/*
 *.egg-info/
 
 .DS_Store
+
+diagnostics_endpoint/__pycache__/*
+
+app.py
+
+templates/*

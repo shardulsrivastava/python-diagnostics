@@ -13,4 +13,4 @@ python3 setup.py sdist bdist_wheel
 
 echo "Uploading artifacts"
 
-twine upload -u shardulsrivastava -p  dist/*
+twine upload -u shardulsrivastava -p <PASSWORD> dist/*
