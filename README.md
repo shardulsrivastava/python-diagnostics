@@ -1,6 +1,6 @@
-# python-diagnostics
+# Diagnostics Endpoint
 
-Library to generate diagnostic endpoint for flask based python web applications.
+Library to generate diagnostics endpoint for flask based python web applications.
 
 ## Installation 
 
@@ -50,12 +50,35 @@ This will generate two endpoints :
 
  2. `/heartbeat` with response as `Ok`
 
-## Set Custom Application Root
+## Configuration
 
+`diagnostics-endpoints` supports configuration via `Diagnostics.render()` method.
+
+## Set Application Endpoints
+`Diagnostics.render()` method takes a list of dictionaries of application endpoints. Format of the dictionary is :
+```python
+application_endpoints = [{"name": "API Name","endpoint": "API URL"}]
+```
+
+here endpoint can be a `http`, `https` or `tcp` endpoint. You can also give absolute URLs as well by giving the url directly as `/user`.
+Example:
+```python
+application_endpoints = [
+                            {"name": "My API Endpoint","endpoint": "/hello"},
+                            {"name":"My HTTP Endpoint","endpoint":"http://example.com/healthcheck"},
+                            {"name":"My HTTPS Endpoint","endpoint":"https://example.com/healthcheck"},
+                            {"name":"My TCP Database Endpoint","endpoint":"tcp://my-database-host:3306"}    
+                        ]
+```
+
+
+
+
+### Set Custom Application Root
 you can specify application root path as:
 
 ```python
-Diagnostics.render(app, diagnostic_endpoints, "/application")
+Diagnostics.render(app, application_endpoints, "/application")
 ```
 
 This will generate the two endpoints as `/application/diagnostics` and `/application/heartbeat`.
