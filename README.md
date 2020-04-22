@@ -50,3 +50,12 @@ This will generate two endpoints :
 
  2. `/heartbeat` with response as `Ok`
 
+## Set Custom Application Root
+
+you can specify application root path as:
+
+```python
+Diagnostics.render(app, diagnostic_endpoints, "/application")
+```
+
+This will generate the two endpoints as `/application/diagnostics` and `/application/heartbeat`.

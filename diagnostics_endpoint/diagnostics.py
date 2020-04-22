@@ -10,10 +10,10 @@ class Diagnostics:
     diagnostic_endpoints = None
 
     @staticmethod
-    def render(app, endpoints, context_path=''):
+    def render(app, endpoints, root_path=''):
         Diagnostics.diagnostic_endpoints = endpoints
-        app.add_url_rule(f'{context_path}/heartbeat', 'heartbeat', Diagnostics.heartbeat)
-        app.add_url_rule(f'{context_path}/diagnostics', 'diagnostics', Diagnostics.diagnostics)
+        app.add_url_rule(f'{root_path}/heartbeat', 'heartbeat', Diagnostics.heartbeat)
+        app.add_url_rule(f'{root_path}/diagnostics', 'diagnostics', Diagnostics.diagnostics)
 
     @staticmethod
     def create_html():
