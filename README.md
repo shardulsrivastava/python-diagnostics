@@ -23,7 +23,7 @@ pip install -U git+ssh://git@github.com:shardulsrivastava/python-diagnostics.git
 
 1. Add the dependency in requirements.txt.
 ```bash
-diagnostics-endpoint==0.0.5
+diagnostics-endpoint==0.0.7
 ```
 
 2. Add the below line to your application entry point:
