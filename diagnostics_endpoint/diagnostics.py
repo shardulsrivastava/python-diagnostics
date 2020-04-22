@@ -64,11 +64,11 @@ class Diagnostics:
         except requests.exceptions.TooManyRedirects:
             probe_exception = "Too Many Redirects."
             print(f"Unable to connect to => {url}, Exception => {probe_exception}")
+        except requests.exceptions.HTTPError as err:
+            probe_exception = f"Couldn't connect to URL. Failed with HTTP {err.response.status_code}"
+            print(f"Unable to connect to => {url}, Exception => {probe_exception}")
         except requests.exceptions.RequestException:
             probe_exception = "Unable to connect to URL"
-            print(f"Unable to connect to => {url}, Exception => {probe_exception}")
-        except requests.exceptions.HTTPError as err:
-            probe_exception = err
             print(f"Unable to connect to => {url}, Exception => {probe_exception}")
         except Exception as exception:
             probe_exception = exception
