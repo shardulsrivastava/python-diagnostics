@@ -74,11 +74,11 @@ application_endpoints = [
 
 
 
-### Set Custom Application Root
+### Set Application Root
 you can specify application root path as:
 
 ```python
-Diagnostics.render(app, application_endpoints, "/application")
+Diagnostics.render(app, application_endpoints, "/myapplication")
 ```
 
-This will generate the two endpoints as `/application/diagnostics` and `/application/heartbeat`.
+This will generate the two endpoints as `/myapplication/diagnostics` and `/myapplication/heartbeat`.
