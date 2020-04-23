@@ -13,3 +13,5 @@ diagnostics_endpoint/__pycache__/*
 app.py
 
 templates/*
+
+*/test*.py

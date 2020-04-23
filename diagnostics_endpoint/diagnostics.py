@@ -1,29 +1,32 @@
 #!/usr/bin/env python
 
-from flask import render_template, request
+from flask import request
 import requests
 import os
 import socket
+from jinja2 import Template
 
 
 class Diagnostics:
-    diagnostic_endpoints = None
+    diagnostic_endpoints = []
 
     @staticmethod
     def render(app, endpoints, root_path=''):
-        Diagnostics.diagnostic_endpoints = endpoints
-        app.add_url_rule(f'{root_path}/heartbeat', 'heartbeat', Diagnostics.heartbeat)
-        app.add_url_rule(f'{root_path}/diagnostics', 'diagnostics', Diagnostics.diagnostics)
+        if isinstance(endpoints, list):
+            Diagnostics.diagnostic_endpoints = endpoints
+            app.add_url_rule(f'{root_path}/heartbeat', 'heartbeat', Diagnostics.heartbeat)
+            app.add_url_rule(f'{root_path}/diagnostics', 'diagnostics', Diagnostics.diagnostics)
+        else:
+            raise DiagnosticEndpointException("endpoints should be a list")
 
     @staticmethod
-    def create_html():
+    def render_html(diagnostic_endpoints):
+        status = Diagnostics.get_status(diagnostic_endpoints)
+        length = len(diagnostic_endpoints)
         current_path = os.path.dirname(os.path.realpath(__file__))
-        templates_dir = f"{os.getcwd()}/templates"
-        if not os.path.isdir(templates_dir):
-            os.makedirs(templates_dir)
-        with open(f"{current_path}/templates/diagnostics.html", 'r') as src, open(f"{templates_dir}/diagnostics.html",
-                                                                                  'w') as destination:
-            destination.write(src.read())
+        with open(f"{current_path}/templates/diagnostics.html", 'r') as template_html:
+            template = Template(template_html.read())
+            return template.render(len=length, diagnostic_components=diagnostic_endpoints, status=status)
 
     @staticmethod
     def get_status(endpoints):
@@ -40,7 +43,8 @@ class Diagnostics:
     """
 
     @staticmethod
-    def probe(endpoint):
+    def probe(application_endpoint):
+        endpoint = application_endpoint["endpoint"]
         if endpoint.startswith("http://") or endpoint.startswith("https://"):
             return Diagnostics.probe_http(endpoint)
         elif endpoint.startswith("tcp://"):
@@ -103,10 +107,9 @@ class Diagnostics:
     def diagnostics():
         endpoints = Diagnostics.diagnostic_endpoints
         i = 0
-        Diagnostics.create_html()
+        ##Diagnostics.create_html()
         for component in endpoints:
-            endpoint = component["endpoint"]
-            probe_response = Diagnostics.probe(endpoint)
+            probe_response = Diagnostics.probe(component)
             probe_status = probe_response["status"]
 
             if probe_status > 0:
@@ -118,11 +121,13 @@ class Diagnostics:
 
             endpoints[i]["exception"] = probe_response["exception"]
             i = i + 1
-        overall_status = Diagnostics.get_status(endpoints)
 
-        return render_template("diagnostics.html", len=len(endpoints),
-                               diagnostic_components=endpoints, status=overall_status)
+        return Diagnostics.render_html(endpoints)
 
     @staticmethod
     def heartbeat():
         return "Ok"
+
+
+class DiagnosticEndpointException(Exception):
+    pass

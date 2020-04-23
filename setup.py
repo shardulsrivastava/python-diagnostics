@@ -23,7 +23,7 @@ setup_args = dict(
 )
 
 install_requires = [
-    'flask', 'requests'
+    'flask', 'requests', 'jinja2'
 ]
 
 if __name__ == '__main__':
