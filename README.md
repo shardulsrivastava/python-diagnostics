@@ -16,7 +16,7 @@ pip install -U diagnostics-endpoint
 Install this package directly from github:
 
 ```python
-pip install -U git+ssh://git@github.com:shardulsrivastava/python-diagnostics.git@master
+pip install -U git+ssh://git@github.com/shardulsrivastava/python-diagnostics.git@master
 ```
 
 ## Usage
